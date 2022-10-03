@@ -18,11 +18,8 @@ console.log((screenPrice + ' USD') + ', ' + (screenPrice * 57 + ' RUB') +
 console.log((fullPrice + ' USD') + ', ' + (fullPrice * 57 + ' RUB') +
     ', ' + (fullPrice * 37 + ' UAH') + ', ' + (fullPrice * 7 + ' CNY'));
 
-
 console.log((screens.toLowerCase().split(", ")));
 console.log((fullPrice * rollback) / 100);
-
-
 
 alert("Всем привет");
 
@@ -30,7 +27,6 @@ console.log("Сообщение выведено");
 
 title = prompt("Как называется ваш проект?");
 alert(title);
-
 
 screens = prompt("Какие типы экранов нужно разработать? пример: Простые, Сложные, Интерактивные");
 switch (screens) {
@@ -55,9 +51,6 @@ switch (screens) {
     default:
         alert("Ответ не верный");
 }
-
-
-
 
 screenPrice = prompt("Сколько будет стоить данная работа?");
 alert(parseFloat(screenPrice));
