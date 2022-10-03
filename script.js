@@ -26,50 +26,33 @@ alert("Всем привет");
 title = prompt("Как называется ваш проект?");
 console.log(title);
 
-screens = prompt("Какие типы экранов нужно разработать? пример: Простые, Сложные, Интерактивные");
-switch (screens) {
-    case "Простые":
-        alert(screens);
-        break;
-    case "Сложные":
-        alert(screens);
-        break;
-    case "Интерактивные":
-        alert(screens);
-        break;
-    default:
-        alert("Ответ не верный");
-}
-screenPrice = prompt("Сколько будет стоить данная работа?");
+screens = prompt("Какие типы экранов нужно разработать?");
+console.log(screens);
+
+screenPrice = +prompt("Сколько будет стоить данная работа?");
 console.log(screenPrice);
 
-adaptive = prompt("Нужен ли адаптив на сайте?");
-switch (adaptive) {
-    case "Да":
-          console.log(true);
-        break;
-    case "Нет":
-          console.log(false);
-        break;
-    default:
-        console.log(false);
+adaptive = confirm("Нужен ли адаптив на сайте?");
+if(adaptive == true){
+    console.log(true);
+}else{
+    console.log(false);
 }
-
 service1 = prompt("Какой дополнительный тип услуги нужен?");
-servicePrice1 = parseInt(prompt("Сколько это будет стоить?", ''));
+servicePrice1 = +prompt("Сколько это будет стоить?");
 service2 = prompt("Какой дополнительный тип услуги нужен?");
-servicePrice2 = parseInt(prompt("Сколько это будет стоить?", ''));
+servicePrice2 = +prompt("Сколько это будет стоить?");
 fullPrice = Number(screenPrice) + Number(servicePrice1) + Number(servicePrice2);
 console.log(fullPrice);
 
 servicePercentPrice = fullPrice - fullPrice * rollback / 100;
 console.log(Math.ceil(servicePercentPrice));
-if (fullPrice > 30000 || fullPrice === 30000) {
+if (fullPrice >= 30000) {
     console.log("Вам предоставляется скидка 10%");
-} if (fullPrice > 15000 && fullPrice < 30000) {
+} else if (fullPrice >= 15000) {
     console.log("Вам предоставляется скидка 5%");
-} if (fullPrice < 15000 && fullPrice >= 0) {
+} else if ( fullPrice >= 0) {
     console.log("Скидка не предусмотрена");
-} if (fullPrice < 0) {
+} else {
     console.log("Что то пошло не так");
 }
