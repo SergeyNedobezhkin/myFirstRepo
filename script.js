@@ -1,5 +1,5 @@
 'use strict';
-
+// Блок объявления переменных
 let title = prompt("Как называется ваш проект?");
 let screens = prompt("Какие типы экранов нужно разработать?");
 let screenPrice = +prompt("Сколько будет стоить данная работа?");
@@ -11,7 +11,44 @@ let servicePrice2 = +prompt("Сколько это будет стоить?");
 let rollback = 10;
 let fullPrice = Number(screenPrice) + Number(servicePrice1) + Number(servicePrice2);
 let servicePercentPrice = fullPrice - (fullPrice * (rollback / 100));
+let allServicePrices;
 
+// Блок функций
+const showTypeOf = function (variable) {
+    console.log(variable, typeof variable);
+};
+
+const getRollbackMessage = function (price) {
+    if (price >= 30000) {
+        return "Вам предоставляется скидка 10%";
+    } else if (price >= 15000) {
+        return "Вам предоставляется скидка 5%";
+    } else if (price >= 0) {
+        return "Скидка не предусмотрена";
+    } else {
+        return "Что то пошло не так";
+    }
+};
+
+function getAllServicePrices() {
+    allServicePrices = servicePrice1 + servicePrice2;
+    console.log(allServicePrices);
+}
+getAllServicePrices(servicePrice1, servicePrice2);
+
+const getFullPrice = function () {
+    return screenPrice + allServicePrices;
+};
+
+const getTitle = function () {
+    let varible = title.trim().toLowerCase().substring(1);
+    let elem = title.trim().substring(0, 1).toLocaleUpperCase() + varible;
+    return elem;
+};
+
+const getServicePercentPrices = function (a) {
+    return servicePercentPrice;
+};
 
 if (adaptive == true) {
     console.log(true);
@@ -19,28 +56,27 @@ if (adaptive == true) {
     console.log(false);
 }
 
-if (fullPrice >= 30000) {
-    console.log("Вам предоставляется скидка 10%");
-} else if (fullPrice >= 15000) {
-    console.log("Вам предоставляется скидка 5%");
-} else if (fullPrice >= 0) {
-    console.log("Скидка не предусмотрена");
-} else {
-    console.log("Что то пошло не так");
-}
+// Блок вызова
 
-console.log(title);
+showTypeOf(title);
+showTypeOf(screenPrice);
+showTypeOf(adaptive);
+getAllServicePrices();
+console.log(getTitle(title));
 console.log(screens);
 console.log((screens.toLowerCase().split(", ")));
-console.log(typeof (title));
-console.log(typeof (fullPrice));
-console.log(typeof (adaptive));
-console.log(screens.length);
-console.log(screenPrice * 57 + ' RUB');
-console.log(fullPrice * 57 + ' RUB');
-console.log((fullPrice * rollback) / 100);
-console.log(Math.ceil(servicePercentPrice));
-console.log(screenPrice);
-console.log(fullPrice);
+console.log(getServicePercentPrices());
+console.log(getRollbackMessage(fullPrice));
+
+// console.log(title);
+// console.log(typeof (title));
+// console.log(typeof (fullPrice));
+// console.log(typeof (adaptive));
+// console.log(screens.length);
+// console.log((fullPrice * rollback) / 100);
+// console.log(Math.ceil(servicePercentPrice));
+// console.log('"Стоимость верстки экранов"' + screenPrice + ' рублей' + 'и' + '" Стоимость разработки сайта"'
+//     + fullPrice + " рублей");
+// console.log(fullPrice = getFullPrice(screenPrice, allServicePrices));
 
 
