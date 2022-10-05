@@ -22,7 +22,6 @@ const asking = function () {
     do {
         screenPrice = +prompt("Сколько будет стоить данная работа?");
     } while (!isNumber(screenPrice));
-    // screenPrice = prompt("Сколько будет стоить данная работа?");
     adaptive = confirm("Нужен ли адаптив на сайте?");
 };
 
@@ -38,11 +37,12 @@ const getAllServicePrices = function () {
         }
         sum += +prompt("Сколько это будет стоить?");
         while (!isNumber(sum)) {
-            sum = prompt("Сколько это будет стоить?");
+            sum = +prompt("Сколько это будет стоить?");
         }
     }
     return sum;
 };
+
 
 const showTypeOf = function (variable) {
     console.log(variable, typeof variable);
@@ -75,7 +75,6 @@ const getServicePercentPrices = function () {
 };
 
 // Блок вызова
-
 asking();
 allServicePrices = getAllServicePrices();
 fullPrice = getFullPrice();
@@ -97,13 +96,3 @@ console.log('"Стоимость верстки экранов"' + screenPrice +
     + fullPrice + " рублей");
 console.log(screens);
 console.log((screens.toLowerCase().split(", ")));
-
-
-
-
-
-
-// console.log(title);
-// console.log(typeof (fullPrice));
-// // console.log((fullPrice * rollback) / 100);
-// console.log(fullPrice = getFullPrice(screenPrice, allServicePrices));
