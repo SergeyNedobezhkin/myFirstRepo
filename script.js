@@ -1,9 +1,11 @@
 'use strict';
 // Блок объявления переменных
-let title = prompt("Как называется ваш проект?");
-let screens = prompt("Какие типы экранов нужно разработать?");
-let screenPrice = +prompt("Сколько будет стоить данная работа?");
+
+let title = prompt("Как называется ваш проект?", "Project");
+let screens = prompt("Какие типы экранов нужно разработать?", "Простые, Сложные");
+let screenPrice = +prompt("Сколько будет стоить данная работа?", 15000);
 let adaptive = confirm("Нужен ли адаптив на сайте?");
+
 
 let service1 = prompt("Какой дополнительный тип услуги нужен?");
 let servicePrice1 = +prompt("Сколько это будет стоить?");
@@ -12,17 +14,14 @@ let servicePrice2 = +prompt("Сколько это будет стоить?");
 
 let rollback = 10;
 let allServicePrices;
-let fullPrice = Number(screenPrice) + Number(servicePrice1) + Number(servicePrice2);
-let servicePercentPrice = fullPrice - (fullPrice * (rollback / 100));
-
+let fullPrice;
+let servicePercentPrice;
 
 // Блок функций
 
-function getAllServicePrices() {
-    allServicePrices = servicePrice1 + servicePrice2;
-    console.log(allServicePrices);
-}
-
+const getAllServicePrices = function () {
+    return servicePrice1 + servicePrice2;
+};
 
 const showTypeOf = function (variable) {
     console.log(variable, typeof variable);
@@ -40,8 +39,6 @@ const getRollbackMessage = function (price) {
     }
 };
 
-
-
 const getFullPrice = function () {
     return screenPrice + allServicePrices;
 };
@@ -52,8 +49,8 @@ const getTitle = function () {
     return elem;
 };
 
-const getServicePercentPrices = function (a) {
-    return servicePercentPrice;
+const getServicePercentPrices = function () {
+    return fullPrice - (fullPrice * (rollback / 100));
 };
 
 if (adaptive == true) {
@@ -64,10 +61,10 @@ if (adaptive == true) {
 
 // Блок вызова
 
-allServicePrices = getAllServicePrices(servicePrice1, servicePrice2);
+allServicePrices = getAllServicePrices();
 fullPrice = getFullPrice();
 servicePercentPrice = getServicePercentPrices();
-title = getTitle(title);
+title = getTitle();
 
 showTypeOf(title);
 showTypeOf(screenPrice);
@@ -81,12 +78,14 @@ console.log(screens.length);
 console.log(Math.ceil(servicePercentPrice));
 console.log('"Стоимость верстки экранов"' + screenPrice + ' рублей' + 'и' + '" Стоимость разработки сайта"'
     + fullPrice + " рублей");
+console.log(screens);
+console.log((screens.toLowerCase().split(", ")));
 
 
 
 
-// console.log(screens);
-// console.log((screens.toLowerCase().split(", ")));
+
+
 // console.log(title);
 // console.log(typeof (fullPrice));
 // // console.log((fullPrice * rollback) / 100);
