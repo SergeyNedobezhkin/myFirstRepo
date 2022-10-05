@@ -1,26 +1,47 @@
 'use strict';
 // Блок объявления переменных
-
-let title = prompt("Как называется ваш проект?", "Project");
-let screens = prompt("Какие типы экранов нужно разработать?", "Простые, Сложные");
-let screenPrice = +prompt("Сколько будет стоить данная работа?", 15000);
-let adaptive = confirm("Нужен ли адаптив на сайте?");
-
-
-let service1 = prompt("Какой дополнительный тип услуги нужен?");
-let servicePrice1 = +prompt("Сколько это будет стоить?");
-let service2 = prompt("Какой дополнительный тип услуги нужен?");
-let servicePrice2 = +prompt("Сколько это будет стоить?");
-
+let title;
+let screens;
+let screenPrice;
+let adaptive;
 let rollback = 10;
 let allServicePrices;
 let fullPrice;
 let servicePercentPrice;
+let service1;
+let service2;
 
 // Блок функций
+const isNumber = function (num, sum) {
+    return !isNaN(parseFloat(num, sum)) && isFinite(num, sum);
+};
 
+const asking = function () {
+    title = prompt("Как называется ваш проект?", "Project");
+    screens = prompt("Какие типы экранов нужно разработать?", "Простые, Сложные");
+    do {
+        screenPrice = +prompt("Сколько будет стоить данная работа?");
+    } while (!isNumber(screenPrice));
+    // screenPrice = prompt("Сколько будет стоить данная работа?");
+    adaptive = confirm("Нужен ли адаптив на сайте?");
+};
+
+let sum;
 const getAllServicePrices = function () {
-    return servicePrice1 + servicePrice2;
+    sum = 0;
+    for (let i = 0; i < 2; i++) {
+
+        if (i === 0) {
+            service1 = prompt("Какой дополнительный тип услуги нужен?");
+        } else if (i === 1) {
+            service2 = prompt("Какой дополнительный тип услуги нужен?");
+        }
+        sum += +prompt("Сколько это будет стоить?");
+        while (!isNumber(sum)) {
+            sum = prompt("Сколько это будет стоить?");
+        }
+    }
+    return sum;
 };
 
 const showTypeOf = function (variable) {
@@ -53,14 +74,9 @@ const getServicePercentPrices = function () {
     return fullPrice - (fullPrice * (rollback / 100));
 };
 
-if (adaptive == true) {
-    console.log(true);
-} else {
-    console.log(false);
-}
-
 // Блок вызова
 
+asking();
 allServicePrices = getAllServicePrices();
 fullPrice = getFullPrice();
 servicePercentPrice = getServicePercentPrices();
@@ -70,6 +86,7 @@ showTypeOf(title);
 showTypeOf(screenPrice);
 showTypeOf(adaptive);
 
+console.log("allServicePrices", allServicePrices);
 console.log(getRollbackMessage(fullPrice));
 console.log(typeof (title));
 console.log(typeof (adaptive));
