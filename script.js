@@ -22,7 +22,7 @@ function getAllServicePrices() {
     allServicePrices = servicePrice1 + servicePrice2;
     console.log(allServicePrices);
 }
-getAllServicePrices(servicePrice1, servicePrice2);
+
 
 const showTypeOf = function (variable) {
     console.log(variable, typeof variable);
@@ -68,6 +68,7 @@ showTypeOf(title);
 showTypeOf(screenPrice);
 showTypeOf(adaptive);
 getAllServicePrices();
+getAllServicePrices(servicePrice1, servicePrice2);
 
 console.log(getRollbackMessage(fullPrice));
 console.log(typeof (title));
@@ -88,5 +89,3 @@ console.log('"Стоимость верстки экранов"' + screenPrice +
 // console.log(typeof (fullPrice));
 // // console.log((fullPrice * rollback) / 100);
 // console.log(fullPrice = getFullPrice(screenPrice, allServicePrices));
-
-
