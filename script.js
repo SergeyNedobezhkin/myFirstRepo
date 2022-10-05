@@ -64,11 +64,14 @@ if (adaptive == true) {
 
 // Блок вызова
 
+allServicePrices = getAllServicePrices(servicePrice1, servicePrice2);
+fullPrice = getFullPrice();
+servicePercentPrice = getServicePercentPrices();
+title = getTitle(title);
+
 showTypeOf(title);
 showTypeOf(screenPrice);
 showTypeOf(adaptive);
-getAllServicePrices();
-getAllServicePrices(servicePrice1, servicePrice2);
 
 console.log(getRollbackMessage(fullPrice));
 console.log(typeof (title));
@@ -76,15 +79,14 @@ console.log(typeof (adaptive));
 console.log(typeof (screenPrice));
 console.log(screens.length);
 console.log(Math.ceil(servicePercentPrice));
-
-console.log(getTitle(title));
-console.log(screens);
-console.log((screens.toLowerCase().split(", ")));
-console.log(getServicePercentPrices());
 console.log('"Стоимость верстки экранов"' + screenPrice + ' рублей' + 'и' + '" Стоимость разработки сайта"'
     + fullPrice + " рублей");
 
 
+
+
+// console.log(screens);
+// console.log((screens.toLowerCase().split(", ")));
 // console.log(title);
 // console.log(typeof (fullPrice));
 // // console.log((fullPrice * rollback) / 100);
