@@ -12,8 +12,8 @@ let service1;
 let service2;
 
 // Блок функций
-const isNumber = function (num, sum) {
-    return !isNaN(parseFloat(num, sum)) && isFinite(num, sum);
+const isNumber = function (num) {
+    return !isNaN(parseFloat(num)) && isFinite(num);
 };
 
 const asking = function () {
@@ -25,24 +25,26 @@ const asking = function () {
     adaptive = confirm("Нужен ли адаптив на сайте?");
 };
 
-let sum;
 const getAllServicePrices = function () {
-    sum = 0;
+    let sum = 0;
     for (let i = 0; i < 2; i++) {
+        let answer = 0;
 
         if (i === 0) {
-            service1 = prompt("Какой дополнительный тип услуги нужен?");
+            service1 = prompt("Какой дополнительный тип услуги нужен?", "service1");
+
         } else if (i === 1) {
-            service2 = prompt("Какой дополнительный тип услуги нужен?");
+            service2 = prompt("Какой дополнительный тип услуги нужен?", "service2");
+
         }
-        sum += +prompt("Сколько это будет стоить?");
-        while (!isNumber(sum)) {
-            sum = +prompt("Сколько это будет стоить?");
+        answer = +prompt("Сколько это будет стоить?");
+        while (!isNumber(answer)) {
+            answer = +prompt("Сколько это будет стоить?");
         }
+        sum = answer + sum;
     }
     return sum;
 };
-
 
 const showTypeOf = function (variable) {
     console.log(variable, typeof variable);
