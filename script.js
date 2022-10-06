@@ -39,7 +39,7 @@ const getAllServicePrices = function () {
         while (!isNumber(answer)) {
             answer = +prompt("Сколько это будет стоить?");
         }
-        sum = answer + sum;
+        sum += answer;
     }
     return sum;
 };
@@ -64,10 +64,10 @@ const getFullPrice = function () {
     return screenPrice + allServicePrices;
 };
 
-const getTitle = function () {
-    let varible = title.trim().toLowerCase().substring(1);
-    let elem = title.trim().substring(0, 1).toLocaleUpperCase() + varible;
-    return elem;
+
+const getTitle = function (str) {
+    const formattedStr = str.trim().toLowerCase();
+    return formattedStr[0].toLocaleUpperCase() + formattedStr.slice(1);
 };
 
 const getServicePercentPrices = function () {
@@ -79,7 +79,7 @@ asking();
 allServicePrices = getAllServicePrices();
 fullPrice = getFullPrice();
 servicePercentPrice = getServicePercentPrices();
-title = getTitle();
+title = getTitle(title);
 
 showTypeOf(title);
 showTypeOf(screenPrice);
