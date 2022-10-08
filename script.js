@@ -73,7 +73,6 @@ const appData = {
     logger: function () {
         for (let key in appData) {
             console.log("Ключ:" + key + " " + "Значение:" + appData[key]);
-
         }
         console.log(appData.fullPrice);
         console.log(appData.servicePercentPrice);
