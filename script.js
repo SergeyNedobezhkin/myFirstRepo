@@ -8,11 +8,12 @@ const appData = {
     allServicePrices: 0,
     fullPrice: 0,
     servicePercentPrice: 0,
-    services: [],
+    services: {},
 
     start: function () {
         appData.asking();
         appData.addPrices();
+        appData.getFullPrice();
         appData.getServicePercentPrice();
         appData.getTitle(appData.title);
         appData.logger();
@@ -31,8 +32,8 @@ const appData = {
             let price = 0;
 
             do {
-                appData.name = prompt("Какие типы экранов нужно разработать?");
-            } while (appData.isNumber(appData.name));
+                name = prompt("Какие типы экранов нужно разработать?");
+            } while (appData.isNumber(name));
 
             do {
                 price = +prompt("Сколько будет стоить данная работа?");
@@ -46,27 +47,26 @@ const appData = {
             let price = 0;
 
             do {
-                appData.name = prompt("Какой дополнительный тип услуги нужен?");
-            } while (appData.isNumber(appData.name));
+                name = prompt("Какой дополнительный тип услуги нужен?");
+            } while (appData.isNumber(name));
 
             do {
                 price = +prompt("Сколько это будет стоить?");
             } while (!appData.isNumber(price));
 
-            appData.services.push({ id: i, name: name, price: price });
+             appData.services[name] = +price;
         }
         appData.adaptive = confirm("Нужен ли адаптив на сайте?");
     },
     addPrices: function () {
-        
-        appData.screenPrice = appData.screens.reduce(function(sum,item){
-           return sum + item.price;
-        }, 0);
 
-        for (let service of appData.services) {
-            appData.allServicePrices += +service.price;
+        for (let screen of appData.screens) {
+            appData.screenPrice += +screen.price;
         }
-        appData.fullPrice = appData.screenPrice + appData.allServicePrices;
+
+        for (let key in appData.services) {
+            appData.allServicePrices += appData.services[key];
+        }
     },
     getRollbackMessage: function (price) {
         if (price >= 30000) {
@@ -78,6 +78,9 @@ const appData = {
         } else {
             return "Что то пошло не так";
         }
+    },
+    getFullPrice: function () {
+        appData.fullPrice = appData.screenPrice + appData.allServicePrices;
     },
     getTitle: function (str) {
         const formattedStr = str.trim().toLowerCase();
@@ -97,3 +100,4 @@ const appData = {
     }
 };
 appData.start();
+
