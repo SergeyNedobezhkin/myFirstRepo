@@ -1,5 +1,21 @@
 'use strict';
 
+let screenBlock;
+const title = document.getElementsByTagName('h1');
+const handlerBtnStart = document.getElementsByClassName('handler_btn');
+const handlerBtnReset = document.getElementsByClassName('handler_btn');
+const plus = document.querySelector('.screen-btn');
+const otherItemsPercent = document.querySelectorAll('.other-items' + '.percent');
+const otherItemsNumber = document.querySelectorAll('.other-items' + '.number');
+const inputTypeRange = document.querySelector('.rollback > .main-controls__range > input[type=range]');
+const inputTypeRangeValue = document.querySelector('.rollback > .main-controls__range > span.range-value');
+
+const totalInput = document.getElementsByClassName('total-input');
+for (let i = 0; i < totalInput.length; i++) {
+    console.log(totalInput[i]);
+}
+screenBlock = document.querySelectorAll('.screen');
+
 const appData = {
     title: '',
     screens: [],
@@ -10,7 +26,6 @@ const appData = {
     fullPrice: 0,
     servicePercentPrice: 0,
     services: {},
-
     start: function () {
         appData.asking();
         appData.addPrices();
@@ -101,3 +116,13 @@ const appData = {
     }
 };
 appData.start();
+
+console.log(title[0]);
+console.log(handlerBtnStart[0]);
+console.log(handlerBtnReset[1]);
+console.log(plus);
+console.log(otherItemsPercent);
+console.log(otherItemsNumber);
+console.log(inputTypeRange);
+console.log(inputTypeRangeValue);
+console.log(screenBlock);
