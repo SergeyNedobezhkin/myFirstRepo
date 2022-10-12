@@ -1,20 +1,14 @@
 'use strict';
-
-let screenBlock;
-const title = document.getElementsByTagName('h1');
-const handlerBtnStart = document.getElementsByClassName('handler_btn');
-const handlerBtnReset = document.getElementsByClassName('handler_btn');
+const title = document.getElementsByTagName('h1')[0];
+const [start, reset] = document.getElementsByClassName('handler_btn');
 const plus = document.querySelector('.screen-btn');
-const otherItemsPercent = document.querySelectorAll('.other-items' + '.percent');
-const otherItemsNumber = document.querySelectorAll('.other-items' + '.number');
-const inputTypeRange = document.querySelector('.rollback > .main-controls__range > input[type=range]');
-const inputTypeRangeValue = document.querySelector('.rollback > .main-controls__range > span.range-value');
-
-const totalInput = document.getElementsByClassName('total-input');
-for (let i = 0; i < totalInput.length; i++) {
-    console.log(totalInput[i]);
-}
-screenBlock = document.querySelectorAll('.screen');
+const percent = document.querySelectorAll('.other-items.percent');
+const number = document.querySelectorAll('.other-items.number');
+const inputTypeRange = document.querySelector('.rollback  input');
+const inputTypeRangeValue = document.querySelector('.rollback span.range-value');
+const [total,totalCount,totalCountOther,totalFullCount,totalCountRollback] 
+= document.getElementsByClassName('total-input');
+let screenBlock = document.querySelectorAll('.screen')[0];
 
 const appData = {
     title: '',
@@ -117,12 +111,13 @@ const appData = {
 };
 appData.start();
 
-console.log(title[0]);
-console.log(handlerBtnStart[0]);
-console.log(handlerBtnReset[1]);
+console.log(title);
+console.log(start);
+console.log(reset);
 console.log(plus);
-console.log(otherItemsPercent);
-console.log(otherItemsNumber);
+console.log(percent);
+console.log(number);
 console.log(inputTypeRange);
 console.log(inputTypeRangeValue);
+console.log(total, totalCount, totalCountOther, totalFullCount, totalCountRollback);
 console.log(screenBlock);
