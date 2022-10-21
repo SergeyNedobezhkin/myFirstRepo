@@ -169,6 +169,7 @@ const buttonRangeSpan = document.querySelector('.rollback .range-value');
 const buttonCountScreens = document.getElementById('total-count');
 const otherItemsPercent = document.querySelectorAll('.other-items.percent');
 const otherItemsNumber = document.querySelectorAll('.other-items.number');
+const otherItems = document.querySelectorAll('.other-items');
 const inputTypeRange = document.querySelector('.rollback  input');
 const inputTypeRangeValue = document.querySelector('.rollback span.range-value');
 const [total, totalCount, totalCountOther, fullTotalCount, totalCountRollback]
@@ -181,7 +182,7 @@ const appData = {
     screens: [],
     screenPrice: 0,
     adaptive: true,
-    rollback: 10,
+    rollback: 0,
     servicePricesPersent: 0,
     servicePricesNumber: 0,
     fullPrice: 0,
@@ -193,25 +194,23 @@ const appData = {
 
         startBtn.addEventListener("click", (event) => {
             event.preventDefault();
-
-            document.querySelectorAll('input[type=text],select')
+            document.querySelectorAll('input,select')
                 .forEach(elem => elem.setAttribute("disabled", "true"));
             this.start();
-            startBtn.style.display = 'none';
+        });
+
+        resetBtn.addEventListener("click", (event) => {
+            event.preventDefault();
+            document.querySelectorAll('input,select')
+                .forEach(elem => elem.removeAttribute("disabled"));
             this.reset();
         });
 
-        // resetBtn.addEventListener("click", (event) => {
-        //     event.preventDefault();
-        //     console.log("hello");
-        //     // this.start();
-        // });
-
         buttonPlus.addEventListener("click", this.addScreenBlock);
+
         const changeRange = () => {
             buttonRangeSpan.textContent = buttonRange.value + '%';
             this.rollback = buttonRange.value;
-
         };
         buttonRange.addEventListener("input", changeRange);
     },
@@ -219,12 +218,15 @@ const appData = {
         document.title = title.textContent;
     },
     start: function () {
+        startBtn.style.display = 'none';
+        resetBtn.style.display = '';
         for (const screen of screens) {
             const select = screen.querySelector('select');
             const input = screen.querySelector('input');
 
             if (!select.value || !input.value) {
-                return alert('Заполните все поля');
+                alert('Заполните все поля');
+                return;
             }
         }
         this.addScreens();
@@ -232,21 +234,44 @@ const appData = {
         this.addPrices();
         // this.logger();
         this.showResult();
-
     },
     reset: function () {
-        resetBtn.style.display = '';
-        resetBtn.addEventListener("click", (event) => {
-            event.preventDefault();
-            document.
-                console.log("hello");
-            // $('#val1').val(1);
-            // $('#res1').text(""); //Пустая строка
-            // $('#select-ah').val('Выберите емкость (А/ч)');
-        });
-        // });
-    },
+        total.value = '0';
+        totalCount.value = '0';
+        totalCountOther.value = '0';
+        fullTotalCount.value = '0';
+        totalCountRollback.value = '0';
+        buttonRange.value = '0';
+        buttonRangeSpan.textContent = '0' + '%';
 
+        for (const screen of screens) {
+            const select = screen.querySelector('select');
+            const input = screen.querySelector('input');
+            console.log(screens);
+            if (select.value || input.value) {
+                select.value = '';
+                input.value = '';
+            }
+            for (let i = 1; i < screens.length; i++) {
+
+                screens[i].remove();
+            }
+        }
+        otherItemsPercent.forEach((item) => {
+            const check = item.querySelector('input[type=checkbox]');
+            if (check.checked) {
+                check.checked = '';
+            }
+        });
+        otherItemsNumber.forEach((item) => {
+            const check = item.querySelector('input[type=checkbox]');
+            if (check.checked) {
+                check.checked = '';
+            }
+        });
+        startBtn.style.display = '';
+        resetBtn.style.display = 'none';
+    },
     showResult: function () {
         total.value = this.screenPrice;
         totalCountOther.value = this.servicePricesPersent + this.servicePricesNumber;
@@ -286,7 +311,6 @@ const appData = {
 
             if (check.checked) {
                 appData.servicesNumber[label.textContent] = +input.value;
-
             }
         });
     },
@@ -304,9 +328,10 @@ const appData = {
 
         for (let key in this.servicesPercent) {
             this.servicePricesPersent += this.screenPrice * (this.servicesPercent[key] / 100);
-
         }
+
         this.fullPrice = +this.screenPrice + this.servicePricesNumber + this.servicePricesPersent;
+
         this.servicePercentPrice = this.fullPrice - (this.fullPrice * (this.rollback / 100));
         buttonServicePercentPrice.value = this.servicePercentPrice;
     },
