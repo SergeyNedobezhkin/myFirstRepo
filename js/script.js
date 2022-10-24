@@ -54,6 +54,7 @@ const appData = {
             this.rollback = buttonRange.value;
         };
         buttonRange.addEventListener("input", changeRange);
+        console.log(this);
     },
     addTitile: function () {
         document.title = title.textContent;
@@ -116,7 +117,7 @@ const appData = {
             totalInput[2].value = 0;
             totalInput[3].value = 0;
             totalInput[4].value = 0;
-            console.log(totalInput[0].value);
+            // console.log(totalInput[0].value);
         });
 
         buttonRange.value = 0;
@@ -126,6 +127,7 @@ const appData = {
         resetBtn.style.display = 'none';
 
         this.blockInput(false);
+
         console.log(this);
     },
     showResult: function () {
