@@ -54,24 +54,25 @@ const appData = {
         document.title = title.textContent;
     },
     start: function () {
-        startBtn.style.display = 'none';
-        resetBtn.style.display = '';
-
         for (const screen of screens) {
             const select = screen.querySelector('select');
             const input = screen.querySelector('input');
 
             if (!select.value || !input.value) {
                 alert('Заполните все поля');
-                return this.reset();
+                return;
             }
         }
+
         this.addScreens();
         this.addServices();
         this.addPrices();
         // this.logger();
         this.showResult();
         this.blockInput();
+
+        startBtn.style.display = 'none';
+        resetBtn.style.display = '';
     },
     blockInput: (itemDisabled = true) => {
         document.querySelectorAll
