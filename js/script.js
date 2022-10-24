@@ -108,7 +108,7 @@ const appData = {
         });
 
         this.screens = [];
-        this.screenPrice = 0,
+        this.screenPrice = 0;
         this.rollback = 0;
         this.servicePricesPersent = 0;
         this.servicePricesNumber = 0;
