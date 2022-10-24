@@ -3,7 +3,16 @@ const title = document.getElementsByTagName('h1')[0];
 const [startBtn, resetBtn] = document.getElementsByClassName('handler_btn');
 const buttonPlus = document.querySelector('.screen-btn');
 const buttonRange = document.querySelector('.rollback input');
+
+const totalInput = document.getElementsByClassName('total-input');
+
+const total = document.getElementById('total');
+const totalCount = document.getElementById('total-count');
+const totalCountOther = document.getElementById('total-count-other');
+const fullTotalCount = document.getElementById('total-full-count');
 const buttonServicePercentPrice = document.getElementById('total-count-rollback');
+
+
 const buttonRangeSpan = document.querySelector('.rollback .range-value');
 const buttonCountScreens = document.getElementById('total-count');
 const otherItemsPercent = document.querySelectorAll('.other-items.percent');
@@ -11,8 +20,8 @@ const otherItemsNumber = document.querySelectorAll('.other-items.number');
 const otherItems = document.querySelectorAll('.other-items');
 const inputTypeRange = document.querySelector('.rollback  input');
 const inputTypeRangeValue = document.querySelector('.rollback span.range-value');
-const [total, totalCount, totalCountOther, fullTotalCount, totalCountRollback]
-    = document.getElementsByClassName('total-input');
+
+
 const screens = document.getElementsByClassName('screen');
 const cloneScreen = screens[0].cloneNode(true);
 
@@ -30,18 +39,11 @@ const appData = {
     servicesNumber: {},
     init: function () {
         this.addTitile();
-
-        startBtn.addEventListener("click", (event) => {
-            event.preventDefault();
-            document.querySelectorAll('input,select')
-                .forEach(elem => elem.setAttribute("disabled", "true"));
+        startBtn.addEventListener("click", () => {
             this.start();
         });
 
-        resetBtn.addEventListener("click", (event) => {
-            event.preventDefault();
-            document.querySelectorAll('input,select')
-                .forEach(elem => elem.removeAttribute("disabled"));
+        resetBtn.addEventListener("click", () => {
             this.reset();
         });
 
@@ -59,13 +61,14 @@ const appData = {
     start: function () {
         startBtn.style.display = 'none';
         resetBtn.style.display = '';
+
         for (const screen of screens) {
             const select = screen.querySelector('select');
             const input = screen.querySelector('input');
 
             if (!select.value || !input.value) {
                 alert('Заполните все поля');
-                return;
+                return this.reset();
             }
         }
         this.addScreens();
@@ -73,43 +76,57 @@ const appData = {
         this.addPrices();
         // this.logger();
         this.showResult();
+
+        this.blockInput();
+
+    },
+    blockInput: (itemDisabled = true) => {
+        document.querySelectorAll
+            ('.screen input[type=text],select,.screen-btn,.element input[type=checkbox],.rollback input[type=range]').
+            forEach(item => {
+                item.disabled = itemDisabled;
+            });
     },
     reset: function () {
-        total.value = '0';
-        totalCount.value = '0';
-        totalCountOther.value = '0';
-        fullTotalCount.value = '0';
-        totalCountRollback.value = '0';
-        buttonRange.value = '0';
-        buttonRangeSpan.textContent = '0' + '%';
-
-        for (const screen of screens) {
-            const select = screen.querySelector('select');
-            const input = screen.querySelector('input');
-            console.log(screens);
-            if (select.value || input.value) {
-                select.value = '';
-                input.value = '';
+        [...screens].forEach(() => {
+            while (screens.length > 1) {
+                screens[0].remove();
             }
-            for (let i = 1; i < screens.length; i++) {
+            screens[0].querySelector('select').value = '';
+            screens[0].querySelector('input').value = '';
+        });
 
-                screens[i].remove();
-            }
-        }
         otherItemsPercent.forEach((item) => {
             const check = item.querySelector('input[type=checkbox]');
             if (check.checked) {
                 check.checked = '';
             }
         });
+
         otherItemsNumber.forEach((item) => {
             const check = item.querySelector('input[type=checkbox]');
             if (check.checked) {
                 check.checked = '';
             }
         });
+
+        [...totalInput].forEach(function () {
+            totalInput[0].value = 0;
+            totalInput[1].value = 0;
+            totalInput[2].value = 0;
+            totalInput[3].value = 0;
+            totalInput[4].value = 0;
+            console.log(totalInput[0].value);
+        });
+
+        buttonRange.value = 0;
+        buttonRangeSpan.textContent = 0 + '%';
+
         startBtn.style.display = '';
         resetBtn.style.display = 'none';
+
+        this.blockInput(false);
+        console.log(this);
     },
     showResult: function () {
         total.value = this.screenPrice;
@@ -140,7 +157,7 @@ const appData = {
             const input = item.querySelector('input[type=text]');
 
             if (check.checked) {
-                appData.servicesPercent[label.textContent] = +input.value;
+                this.servicesPercent[label.textContent] = +input.value;
             }
         });
         otherItemsNumber.forEach((item) => {
@@ -149,7 +166,7 @@ const appData = {
             const input = item.querySelector('input[type=text]');
 
             if (check.checked) {
-                appData.servicesNumber[label.textContent] = +input.value;
+                this.servicesNumber[label.textContent] = +input.value;
             }
         });
     },
@@ -186,8 +203,8 @@ const appData = {
         }
     },
     logger: function () {
-        for (let key in appData) {
-            console.log("Ключ:" + key + " " + "Значение:" + appData[key]);
+        for (let key in this) {
+            console.log("Ключ:" + key + " " + "Значение:" + this[key]);
         }
     }
 };
